@@ -270,6 +270,4 @@ Replace these files with your own data and trigger ingestion using Celery tasks.
 - **Access Django shell**: `docker-compose exec web python manage.py shell`
 - **Run migrations**: `docker-compose exec web python manage.py migrate`
 
-## License
 
-MIT

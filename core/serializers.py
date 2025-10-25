@@ -1,0 +1,66 @@
+from rest_framework import serializers
+from .models import Customer, Loan
+
+class RegisterCustomerSerializer(serializers.Serializer):
+    first_name = serializers.CharField(max_length=100)
+    last_name = serializers.CharField(max_length=100)
+    age = serializers.IntegerField()
+    monthly_income = serializers.IntegerField()
+    phone_number = serializers.IntegerField()
+
+class CustomerResponseSerializer(serializers.Serializer):
+    customer_id = serializers.IntegerField()
+    name = serializers.CharField()
+    age = serializers.IntegerField()
+    monthly_income = serializers.IntegerField()
+    approved_limit = serializers.IntegerField()
+    phone_number = serializers.IntegerField()
+
+class CheckEligibilitySerializer(serializers.Serializer):
+    customer_id = serializers.IntegerField()
+    loan_amount = serializers.FloatField()
+    interest_rate = serializers.FloatField()
+    tenure = serializers.IntegerField()
+
+class EligibilityResponseSerializer(serializers.Serializer):
+    customer_id = serializers.IntegerField()
+    approval = serializers.BooleanField()
+    interest_rate = serializers.FloatField()
+    corrected_interest_rate = serializers.FloatField()
+    tenure = serializers.IntegerField()
+    monthly_installment = serializers.FloatField()
+
+class CreateLoanSerializer(serializers.Serializer):
+    customer_id = serializers.IntegerField()
+    loan_amount = serializers.FloatField()
+    interest_rate = serializers.FloatField()
+    tenure = serializers.IntegerField()
+
+class CreateLoanResponseSerializer(serializers.Serializer):
+    loan_id = serializers.IntegerField(allow_null=True)
+    customer_id = serializers.IntegerField()
+    loan_approved = serializers.BooleanField()
+    message = serializers.CharField()
+    monthly_installment = serializers.FloatField(allow_null=True)
+
+class CustomerDetailsSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    phone_number = serializers.IntegerField()
+    age = serializers.IntegerField()
+
+class ViewLoanResponseSerializer(serializers.Serializer):
+    loan_id = serializers.IntegerField()
+    customer = CustomerDetailsSerializer()
+    loan_amount = serializers.FloatField()
+    interest_rate = serializers.FloatField()
+    monthly_installment = serializers.FloatField()
+    tenure = serializers.IntegerField()
+
+class ViewLoansItemSerializer(serializers.Serializer):
+    loan_id = serializers.IntegerField()
+    loan_amount = serializers.FloatField()
+    interest_rate = serializers.FloatField()
+    monthly_installment = serializers.FloatField()
+    repayments_left = serializers.IntegerField()
